@@ -224,6 +224,9 @@ END HEAD-ONLY SEO BLOCK
         @media (min-width: 700px) {
             .trust-bar__item + .trust-bar__item { padding-inline-start: 28px; border-inline-start: 1px solid var(--border); }
         }
+        .section--cut { clip-path: polygon(0 0, 100% 32px, 100% 100%, 0 100%); }
+        .section--cut-r { clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%); }
+        .section--cut-b { clip-path: polygon(0 0, 100% 32px, 100% calc(100% - 32px), 0 100%); }
     </style>
 </head>
 <body>
@@ -322,7 +325,7 @@ END HEAD-ONLY SEO BLOCK
                 </div>
             </div>
         </section>
-        <section class="section section--alt" aria-labelledby="services-title">
+        <section class="section section--alt section--cut-b" aria-labelledby="services-title">
             <div class="site-container">
                 <div class="section-heading reveal"><h2 id="services-title">چهار خدمت تخصصی</h2><p>از طراحی مسیر و تأمین متریال تا اجرا، تست و نگهداری، مسیر همکاری در یک مجموعه فنی متمرکز می‌شود.</p></div>
                 <div class="card-grid card-grid--2">
@@ -339,7 +342,7 @@ END HEAD-ONLY SEO BLOCK
                 <div class="stats reveal"><div class="stat"><strong>۵۰۰m²</strong><span>نمونه سرعت اجرای اعلام‌شده</span></div><div class="stat"><strong>۶ ماه</strong><span>پشتیبانی تضمینی رایگان</span></div><div class="stat"><strong>زیر ۲۴ ساعت</strong><span>هدف حل مسئله در محل</span></div><div class="stat"><strong>۰ تومان</strong><span>هزینه کارشناسی اولیه</span></div></div>
             </div>
         </section>
-        <section class="section section--alt" aria-labelledby="projects-title">
+        <section class="section section--alt section--cut-r" aria-labelledby="projects-title">
             <div class="site-container"><div class="section-heading section-heading--center reveal"><h2 id="projects-title">پروژه‌ها و پاسخ‌های فنی</h2><p>نمونه‌کارها با تصاویر واقعی مشتری تکمیل می‌شوند. برای پرسش‌های قیمت، زمان و گارانتی، پاسخ‌های کوتاه و روشن آماده است.</p></div><div class="hero__actions" style="justify-content:center"><a href="https://ftparsian.ir/projects" class="btn btn--outline">مشاهده صفحه پروژه‌ها</a><a href="https://ftparsian.ir/faq" class="btn btn--outline">رفتن به سوالات متداول</a></div></div>
         </section>
         <section class="section"><div class="site-container"><div class="cta reveal"><h2>پروژه شما به ارزیابی فنی نیاز دارد؟</h2><p>درخواست بازدید رایگان ثبت کنید تا جانمایی، مسیر اجرا و فهرست ریزمتریال پروژه در کرج بررسی شود.</p><a href="https://ftparsian.ir/request-inspection" class="btn btn--primary">ثبت درخواست کارشناسی</a></div></div></section>
