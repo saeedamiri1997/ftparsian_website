@@ -212,6 +212,12 @@ END HEAD-ONLY SEO BLOCK
         .footer-socials .icon, .footer-contact .icon, .contact-float .icon { color: var(--bg-main); }
         .footer-contact__line { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
         .contact-float a { gap: 6px; }
+        .hero__visual { display: grid; gap: 16px; align-content: start; }
+        .hero-art { margin: 0; border: 1px solid var(--border); background: var(--bg-main); box-shadow: 0 1px 3px rgba(0,0,0,.08); color: var(--primary); }
+        .hero-art svg { display: block; width: 100%; height: auto; }
+        .technical-panel--compact { padding: 18px 20px; }
+        .technical-panel--compact .technical-panel__label { margin-bottom: 10px; }
+        .technical-panel--compact li { padding: 8px 0; font-size: .9rem; }
     </style>
 </head>
 <body>
@@ -264,10 +270,29 @@ END HEAD-ONLY SEO BLOCK
                     <p class="hero__lead">فرا تهویه پارسیان مجری لوله‌گذاری مسی، نصب انواع تجهیزات تهویه، کانال‌های پیش‌عایق پلی‌اورتان و پشتیبانی فنی برای پروژه‌های ساختمانی، تجاری و صنعتی در کرج و حومه است.</p>
                     <div class="hero__actions"><a href="https://ftparsian.ir/request-inspection" class="btn btn--primary">درخواست کارشناسی و ریزمتریال رایگان</a><a href="https://ftparsian.ir/services" class="btn btn--outline">مشاهده خدمات</a></div>
                 </div>
-                <aside class="technical-panel reveal" aria-label="تعهدات فنی">
+                <div class="reveal hero__visual">
+                    <!-- REPLACE WITH REAL PROJECT PHOTO WHEN AVAILABLE -->
+                    <figure class="hero-art">
+                        <svg viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="نقشه خطی اجرای کانال، دستگاه تهویه و لوله مسی">
+                            <rect x="40" y="56" width="220" height="52" style="fill:var(--bg-alt)"/>
+                            <path d="M100 56v52M160 56v52M220 56v52"/>
+                            <rect x="208" y="108" width="52" height="84" style="fill:var(--bg-alt)"/>
+                            <path d="M208 172h52M208 184h52" opacity=".55"/>
+                            <circle cx="62" cy="82" r="2.6" style="fill:var(--primary)" stroke="none"/>
+                            <circle cx="238" cy="82" r="2.6" style="fill:var(--primary)" stroke="none"/>
+                            <rect x="40" y="168" width="112" height="58" rx="5" style="fill:var(--bg-alt)"/>
+                            <path d="M40 186h112"/>
+                            <path d="M62 226v16M86 226v22M110 226v16M134 226v22" opacity=".55"/>
+                            <path d="M196 268h124a20 20 0 0 0 20-20v-24" stroke-width="3"/>
+                            <path d="M196 260v16M236 260v16M276 260v16" opacity=".55"/>
+                            <path d="M332 224h16" opacity=".55"/>
+                        </svg>
+                    </figure>
+                    <aside class="technical-panel technical-panel--compact" aria-label="تعهدات فنی">
                     <div class="technical-panel__label">رویکرد اجرایی ما</div>
                     <ul><li>طراحی مسیر با محاسبه دقیق برای کاهش مصرف مس</li><li>تست فشار و کنترل کیفیت پیش از تحویل</li><li>پاسخگویی فنی در کمتر از ۲۴ ساعت</li><li>کارشناسی، جانمایی روی نقشه و ریزمتریال رایگان</li></ul>
                 </aside>
+                </div>
             </div>
         </section>
         <section class="section" aria-labelledby="advantages-title">
