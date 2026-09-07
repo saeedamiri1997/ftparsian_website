@@ -53,16 +53,25 @@ END HEAD-ONLY SEO BLOCK
     </script>
     <style>
         :root {
-          --primary: #018ED3;        /* logo blue - header, links, icons */
-          --primary-dark: #0C447C;   /* hover/active state of primary */
-          --accent: #C81E3A;         /* refined CTA red - deeper/less saturated than raw logo magenta, better contrast */
+          --primary: #018ED3;
+          --primary-dark: #0C447C;
+          --primary-50: #EAF6FC;
+          --primary-100: #D3ECF8;
+          --accent: #C81E3A;
           --accent-hover: #A32D2D;
-          --success: #3B6D11;        /* used ONLY for QC/guarantee/checkmark indicators, never decoratively */
-          --text-primary: #2C2C2A;   /* near-black charcoal, not pure #000 */
+          --success: #3B6D11;
+          --text-primary: #1B1B1A;
           --text-secondary: #5F5E5A;
           --bg-main: #FFFFFF;
-          --bg-alt: #F1EFE8;         /* warm light gray for alternating sections */
-          --border: #E5E3DC;
+          --bg-alt: #F7FBFD;
+          --border: #E7EEF3;
+          --radius-md: 12px;
+          --radius-lg: 20px;
+          --radius-pill: 999px;
+          --shadow-sm: 0 2px 8px rgba(1, 68, 124, 0.06);
+          --shadow-md: 0 8px 24px rgba(1, 68, 124, 0.10);
+          --shadow-lg: 0 20px 48px rgba(1, 68, 124, 0.14);
+          --ease: cubic-bezier(0.4, 0, 0.2, 1);
           --font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
@@ -80,52 +89,67 @@ END HEAD-ONLY SEO BLOCK
         a { color: inherit; text-decoration: none; }
         img { max-width: 100%; display: block; }
         button, input, select, textarea { font: inherit; }
+        :focus-visible { outline: 2px solid var(--primary-dark); outline-offset: 3px; border-radius: 4px; }
         .site-container { width: min(1180px, calc(100% - 32px)); margin-inline: auto; }
         .top-bar { background: var(--primary-dark); color: var(--bg-main); font-size: .82rem; }
         .top-bar__inner { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
         .top-bar__details { display: flex; gap: 20px; flex-wrap: wrap; }
-        .top-bar__link { color: var(--bg-main); font-weight: 700; padding: 5px 10px; border: 1px solid rgba(255,255,255,.55); border-radius: 6px; }
+        .top-bar__link { color: var(--bg-main); font-weight: 700; padding: 5px 10px; border: 1px solid rgba(255,255,255,.55); border-radius: var(--radius-pill); }
         .top-bar__link:hover { background: var(--bg-main); color: var(--primary-dark); }
-        .site-header { position: sticky; top: 0; z-index: 10; background: var(--bg-main); border-bottom: 1px solid var(--border); }
+        .site-header { position: sticky; top: 0; z-index: 10; background: var(--bg-main); border-bottom: 1px solid var(--border); transition: box-shadow 250ms var(--ease), background-color 250ms var(--ease); }
+        .site-header.is-scrolled { background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); box-shadow: var(--shadow-sm); }
         .header__inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
         .brand { color: var(--text-primary); font-size: 1.3rem; font-weight: 900; white-space: nowrap; }
         .brand span { color: var(--primary); }
-        .menu-toggle { display: none; align-items: center; gap: 6px; padding: 8px 10px; color: var(--primary-dark); background: var(--bg-main); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
+        .menu-toggle { display: none; align-items: center; gap: 6px; padding: 8px 10px; color: var(--primary-dark); background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius-md); cursor: pointer; }
         .menu-toggle__icon { font-size: 1.3rem; line-height: 1; }
         .main-nav ul { display: flex; align-items: center; gap: 24px; list-style: none; margin: 0; padding: 0; }
         .main-nav a { position: relative; display: block; padding: 8px 0; color: var(--text-primary); font-size: .92rem; font-weight: 600; }
         .main-nav a::after { content: ""; position: absolute; inset-inline-start: 0; bottom: 0; width: 0; height: 2px; background: var(--primary); transition: width 200ms ease-in-out; }
         .main-nav a:hover, .main-nav a.active { color: var(--primary-dark); }
         .main-nav a:hover::after, .main-nav a.active::after { width: 100%; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 18px; border: 1px solid transparent; border-radius: 7px; font-weight: 700; line-height: 1.4; cursor: pointer; transition: transform 200ms ease-in-out, background-color 200ms ease-in-out, color 200ms ease-in-out, border-color 200ms ease-in-out; }
-        .btn:hover { transform: scale(1.02); }
-        .btn--primary { color: var(--bg-main); background: var(--accent); }
-        .btn--primary:hover { background: var(--accent-hover); }
-        .btn--outline { color: var(--primary-dark); background: var(--bg-main); border-color: var(--primary); }
-        .btn--outline:hover { color: var(--bg-main); background: var(--primary); }
-        .hero { padding: 76px 0 72px; background: var(--bg-alt); border-bottom: 1px solid var(--border); }
-        .hero__grid { display: grid; gap: 42px; align-items: center; }
-        .eyebrow { display: inline-block; margin-bottom: 16px; color: var(--primary-dark); font-size: .9rem; font-weight: 800; letter-spacing: .01em; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 12px 28px; border: 1px solid transparent; border-radius: var(--radius-pill); font-weight: 700; line-height: 1.4; cursor: pointer; transition: transform 250ms var(--ease), background-color 250ms var(--ease), color 250ms var(--ease), border-color 250ms var(--ease), box-shadow 250ms var(--ease); }
+        .btn:hover { transform: translateY(-2px); }
+        .btn--primary { color: var(--bg-main); background: var(--accent); box-shadow: var(--shadow-sm); }
+        .btn--primary:hover { background: var(--accent-hover); box-shadow: var(--shadow-md); }
+        .btn--outline { color: var(--primary-dark); background: var(--bg-main); border-color: var(--border); box-shadow: var(--shadow-sm); }
+        .btn--outline:hover { color: var(--primary-dark); background: var(--bg-main); border-color: var(--primary); box-shadow: var(--shadow-md); }
+        .hero { position: relative; overflow: hidden; padding: 76px 0 72px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
+        .hero__grid { position: relative; z-index: 1; display: grid; gap: 42px; align-items: center; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+        .blob--hero { width: 480px; height: 480px; top: -140px; inset-inline-end: -140px; background: radial-gradient(circle, var(--primary) 0%, rgba(1,142,211,0) 70%); opacity: .18; }
+        .blob--cta { width: 440px; height: 440px; bottom: -180px; inset-inline-start: -160px; background: radial-gradient(circle, var(--accent) 0%, rgba(200,30,58,0) 70%); opacity: .14; }
+        .eyebrow { display: inline-block; margin-bottom: 16px; padding: 6px 16px; border-radius: var(--radius-pill); background: var(--primary-100); color: var(--primary-dark); font-size: .85rem; font-weight: 800; letter-spacing: .01em; }
         h1, h2, h3, p { margin-top: 0; }
         h1 { margin-bottom: 20px; font-size: 1.75rem; line-height: 1.35; font-weight: 800; }
         h2 { margin-bottom: 14px; font-size: 1.35rem; line-height: 1.45; font-weight: 700; }
         h3 { margin-bottom: 10px; font-size: 1.1rem; line-height: 1.5; font-weight: 700; }
+        .hero h1 { font-size: 2rem; font-weight: 800; line-height: 1.35; }
         .hero__lead { max-width: 680px; margin-bottom: 28px; color: var(--text-secondary); font-size: 1.05rem; }
         .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
-        .technical-panel { padding: 24px; background: var(--bg-main); border: 1px solid var(--border); border-inline-start: 5px solid var(--primary); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+        .hero__minis { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-top: 28px; }
+        .hero__mini { display: inline-flex; align-items: center; gap: 10px; font-size: .85rem; color: var(--text-secondary); }
+        .hero__mini strong { display: block; font-size: 1.05rem; color: var(--text-primary); }
+        .technical-panel { padding: 24px; background: var(--bg-main); border: 1px solid var(--border); border-inline-start: 4px solid var(--primary); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
         .technical-panel__label { margin-bottom: 18px; color: var(--primary-dark); font-weight: 800; }
         .technical-panel ul { list-style: none; margin: 0; padding: 0; }
         .technical-panel li { padding: 12px 0; border-bottom: 1px solid var(--border); }
         .technical-panel li:last-child { border-bottom: 0; padding-bottom: 0; }
         .technical-panel li::before { content: "✓"; display: inline-block; margin-inline-end: 8px; color: var(--success); font-weight: 900; }
         .section { padding: 68px 0; }
-        .section--alt { background: var(--bg-alt); border-block: 1px solid var(--border); }
+        .section--alt { background: var(--primary-50); }
         .section-heading { max-width: 720px; margin-bottom: 34px; }
         .section-heading--center { margin-inline: auto; text-align: center; }
         .section-heading p { color: var(--text-secondary); }
-        .card-grid { display: grid; gap: 16px; }
-        .card { height: 100%; padding: 22px; background: var(--bg-main); border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-        .card__index { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; margin-bottom: 16px; color: var(--bg-main); background: var(--primary); border-radius: 50%; font-weight: 800; }
+        .card-grid { display: grid; gap: 20px; }
+        .card-grid > :nth-child(2) { transition-delay: 70ms; }
+        .card-grid > :nth-child(3) { transition-delay: 140ms; }
+        .card-grid > :nth-child(4) { transition-delay: 210ms; }
+        .card-grid > :nth-child(5) { transition-delay: 280ms; }
+        .card-grid > :nth-child(6) { transition-delay: 350ms; }
+        .card-grid > :hover { transition-delay: 0ms; }
+        .card { height: 100%; padding: 28px; background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); transition: transform 250ms var(--ease), box-shadow 250ms var(--ease); }
+        .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
         .card p { margin-bottom: 0; color: var(--text-secondary); }
         .service-card { display: flex; flex-direction: column; align-items: flex-start; }
         .service-card .btn { margin-top: auto; }
@@ -134,17 +158,18 @@ END HEAD-ONLY SEO BLOCK
         .check-list { list-style: none; margin: 0; padding: 0; }
         .check-list li { padding: 12px 0; border-bottom: 1px solid var(--border); }
         .check-list li::before { content: "✓"; margin-inline-end: 8px; color: var(--success); font-weight: 900; }
-        .stats { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
-        .stat { padding: 18px; background: var(--bg-main); border: 1px solid var(--border); text-align: center; }
-        .stat strong { display: block; color: var(--primary-dark); font-size: 1.5rem; }
+        .stats { display: grid; gap: 16px; grid-template-columns: repeat(2, 1fr); }
+        .stat { padding: 22px 18px; background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); text-align: center; }
+        .stat strong { display: block; color: var(--primary-dark); font-size: 2rem; font-weight: 800; }
         .stat span { display: block; color: var(--text-secondary); font-size: .86rem; }
-        .table-wrap { overflow-x: auto; border: 1px solid var(--border); background: var(--bg-main); }
+        .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-main); box-shadow: var(--shadow-sm); }
         table { width: 100%; min-width: 650px; border-collapse: collapse; }
         th, td { padding: 14px 16px; text-align: right; border-bottom: 1px solid var(--border); }
         th { color: var(--primary-dark); background: var(--bg-alt); font-weight: 700; }
         td { color: var(--text-secondary); }
         .status { color: var(--success); font-weight: 700; }
-        .cta { padding: 44px 24px; color: var(--bg-main); background: var(--primary-dark); text-align: center; }
+        .cta-section { position: relative; overflow: hidden; }
+        .cta { position: relative; z-index: 1; padding: 56px 32px; color: var(--bg-main); background: var(--primary-dark); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); text-align: center; }
         .cta h2 { color: var(--bg-main); }
         .cta p { max-width: 660px; margin: 0 auto 24px; color: var(--bg-main); }
         .cta .btn--primary { color: var(--bg-main); background: var(--accent); }
@@ -156,24 +181,66 @@ END HEAD-ONLY SEO BLOCK
         .site-footer li { margin-bottom: 8px; }
         .site-footer a:hover { color: var(--bg-main); text-decoration: underline; }
         .footer-socials { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-        .footer-socials a { display: inline-flex; padding: 6px 10px; border: 1px solid rgba(255,255,255,.5); border-radius: 6px; font-size: .86rem; }
+        .footer-socials a { display: inline-flex; padding: 6px 12px; border: 1px solid rgba(255,255,255,.5); border-radius: var(--radius-pill); font-size: .86rem; }
         .footer-contact { padding-inline-start: 18px; border-inline-start: 1px solid rgba(255,255,255,.5); }
         .footer-bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 32px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.5); color: rgba(255,255,255,.72); font-size: .82rem; }
         .contact-float { position: fixed; inset-inline-end: 18px; bottom: 18px; z-index: 9; display: flex; gap: 8px; }
-        .contact-float a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 8px 12px; color: var(--bg-main); background: var(--primary-dark); border: 1px solid var(--bg-main); border-radius: 7px; font-size: .85rem; box-shadow: 0 1px 3px rgba(0,0,0,.08); transition: transform 200ms ease-in-out, background-color 200ms ease-in-out; }
-        .contact-float a:hover { transform: scale(1.02); background: var(--primary); }
+        .contact-float a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 8px 14px; color: var(--bg-main); background: var(--primary-dark); border: 1px solid var(--bg-main); border-radius: var(--radius-pill); font-size: .85rem; box-shadow: var(--shadow-md); transition: transform 250ms var(--ease), background-color 250ms var(--ease); }
+        .contact-float a:hover { transform: translateY(-2px); background: var(--primary); }
         .mobile-contact-bar { display: none; }
         .reveal { opacity: 0; transform: translateY(12px); transition: opacity 200ms ease-in-out, transform 200ms ease-in-out; }
         .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .icon { width: 30px; height: 30px; color: var(--primary); flex-shrink: 0; }
+        .icon--sm { width: 18px; height: 18px; }
+        .icon-chip { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: var(--primary-100); color: var(--primary); flex-shrink: 0; }
+        .icon-chip .icon { width: 26px; height: 26px; color: var(--primary); }
+        .icon-chip--sm { width: 40px; height: 40px; }
+        .icon-chip--sm .icon { width: 20px; height: 20px; }
+        .card__top { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .card__num { font-size: .8rem; font-weight: 700; color: var(--text-secondary); }
+        .service-card .icon-chip { margin-bottom: 16px; }
+        .top-bar__details span { display: inline-flex; align-items: center; gap: 6px; }
+        .top-bar .icon { color: var(--bg-main); }
+        .menu-toggle__icon { display: inline-flex; }
+        .footer-socials a { align-items: center; gap: 6px; }
+        .footer-socials .icon, .footer-contact .icon, .contact-float .icon { color: var(--bg-main); }
+        .footer-contact__line { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .contact-float a { gap: 6px; }
+        .hero__visual { display: grid; gap: 16px; align-content: start; }
+        .hero-art-wrap { position: relative; }
+        .hero-art { margin: 0; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-main); box-shadow: var(--shadow-md); color: var(--primary); overflow: hidden; }
+        .hero-art svg { display: block; width: 100%; height: auto; }
+        .float-chip { position: absolute; z-index: 2; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bg-main); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); font-size: .85rem; font-weight: 800; white-space: nowrap; }
+        .float-chip .icon { width: 20px; height: 20px; }
+        .float-chip--a { top: 18px; inset-inline-start: -14px; }
+        .float-chip--b { bottom: 18px; inset-inline-end: -14px; }
+        .technical-panel--compact { padding: 18px 20px; }
+        .technical-panel--compact .technical-panel__label { margin-bottom: 10px; }
+        .technical-panel--compact li { padding: 8px 0; font-size: .9rem; }
+        .trust-bar { background: var(--primary-50); }
+        .trust-bar__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 32px; padding-top: 22px; padding-bottom: 22px; }
+        .trust-bar__item { display: inline-flex; align-items: center; gap: 12px; }
+        .trust-bar__text { display: flex; flex-direction: column; line-height: 1.4; }
+        .trust-bar__text strong { font-size: 2rem; font-weight: 800; color: var(--text-primary); }
+        .trust-bar__text span { font-size: .85rem; color: var(--text-secondary); }
+        .teaser-grid { display: grid; gap: 20px; margin-bottom: 32px; }
+        .photo-placeholder { min-height: 250px; margin: 0; display: flex; flex-direction: column; justify-content: flex-end; background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+        .photo-placeholder img { width: 100%; height: 200px; object-fit: contain; opacity: 0; }
+        .photo-placeholder figcaption { padding: 16px; color: var(--text-secondary); border-top: 1px solid var(--border); font-size: .9rem; }
+        .qc-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: .85rem; font-weight: 700; color: var(--success); }
+        .qc-badge svg { width: 22px; height: 22px; flex-shrink: 0; }
         @media (min-width: 700px) {
             .site-container { width: min(1180px, calc(100% - 56px)); }
             .hero__grid { grid-template-columns: 1.15fr .85fr; }
             h1 { font-size: 2.25rem; }
             h2 { font-size: 1.75rem; }
+            .hero h1 { font-size: 3rem; line-height: 1.3; }
             .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
             .card-grid--2 { grid-template-columns: repeat(2, 1fr); }
             .two-column { grid-template-columns: 1fr 1fr; }
             .footer-grid { grid-template-columns: 1.25fr 1fr 1fr 1.1fr; }
+            .teaser-grid { grid-template-columns: 1.35fr 1fr 1fr; }
+            .trust-bar__item + .trust-bar__item { padding-inline-start: 32px; border-inline-start: 1px solid var(--primary-100); }
         }
         @media (min-width: 1024px) {
             .site-container { width: min(1180px, calc(100% - 80px)); }
@@ -184,62 +251,30 @@ END HEAD-ONLY SEO BLOCK
             .menu-toggle { display: inline-flex; }
             .header__inner { position: relative; }
             .header__cta { display: none; }
-            .main-nav { display: none; position: absolute; top: 76px; inset-inline: 0; padding: 12px 16px; background: var(--bg-main); border: 1px solid var(--border); }
+            .main-nav { display: none; position: absolute; top: 76px; inset-inline: 0; padding: 12px 16px; background: var(--bg-main); border: 1px solid var(--border); border-radius: 0 0 var(--radius-md) var(--radius-md); box-shadow: var(--shadow-md); }
             .main-nav.is-open { display: block; }
             .main-nav ul { display: grid; gap: 4px; }
             .main-nav a { padding: 10px 0; }
             .main-nav a::after { display: none; }
             .mobile-contact-bar { position: fixed; inset-inline: 0; bottom: 0; z-index: 8; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 8px; background: var(--bg-main); border-top: 1px solid var(--border); }
-            .mobile-contact-bar a { padding: 9px; color: var(--bg-main); background: var(--accent); border-radius: 6px; text-align: center; font-size: .84rem; font-weight: 700; }
+            .mobile-contact-bar a { padding: 9px; color: var(--bg-main); background: var(--accent); border-radius: var(--radius-pill); text-align: center; font-size: .84rem; font-weight: 700; }
             .mobile-contact-bar a:first-child { background: var(--primary-dark); }
             .contact-float { bottom: 70px; }
             .site-footer { padding-bottom: 88px; }
         }
+        @media (max-width: 700px) {
+            .trust-bar__text strong { font-size: 1.5rem; }
+            .float-chip { padding: 8px 12px; font-size: .78rem; }
+            .float-chip--a { inset-inline-start: -6px; }
+            .float-chip--b { inset-inline-end: -6px; }
+            .stat strong { font-size: 1.5rem; }
+        }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             *, *::before, *::after { transition-duration: 0.01ms !important; }
+            .card-grid > * { transition-delay: 0ms !important; }
             .reveal { opacity: 1; transform: none; }
         }
-        .icon { width: 30px; height: 30px; color: var(--primary); flex-shrink: 0; }
-        .icon--sm { width: 18px; height: 18px; }
-        .card__top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-        .card__num { font-size: .8rem; font-weight: 700; color: var(--text-secondary); }
-        .service-card .card__icon { display: block; margin-bottom: 14px; }
-        .top-bar__details span { display: inline-flex; align-items: center; gap: 6px; }
-        .top-bar .icon { color: var(--bg-main); }
-        .menu-toggle__icon { display: inline-flex; }
-        .footer-socials a { align-items: center; gap: 6px; }
-        .footer-socials .icon, .footer-contact .icon, .contact-float .icon { color: var(--bg-main); }
-        .footer-contact__line { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-        .contact-float a { gap: 6px; }
-        .hero__visual { display: grid; gap: 16px; align-content: start; }
-        .hero-art { margin: 0; border: 1px solid var(--border); background: var(--bg-main); box-shadow: 0 1px 3px rgba(0,0,0,.08); color: var(--primary); }
-        .hero-art svg { display: block; width: 100%; height: auto; }
-        .technical-panel--compact { padding: 18px 20px; }
-        .technical-panel--compact .technical-panel__label { margin-bottom: 10px; }
-        .technical-panel--compact li { padding: 8px 0; font-size: .9rem; }
-        .trust-bar { background: var(--bg-main); border-bottom: 1px solid var(--border); }
-        .trust-bar__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px 28px; padding-top: 14px; padding-bottom: 14px; }
-        .trust-bar__item { display: inline-flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 700; }
-        @media (min-width: 700px) {
-            .trust-bar__item + .trust-bar__item { padding-inline-start: 28px; border-inline-start: 1px solid var(--border); }
-        }
-        .section--cut { clip-path: polygon(0 0, 100% 32px, 100% 100%, 0 100%); }
-        .section--cut-r { clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%); }
-        .section--cut-b { clip-path: polygon(0 0, 100% 32px, 100% calc(100% - 32px), 0 100%); }
-        .card { transition: border-color 200ms ease-in-out; }
-        .card:hover { border-inline-start-color: var(--primary); }
-        .card .card__icon { color: var(--text-secondary); transition: color 200ms ease-in-out; }
-        .card:hover .card__icon { color: var(--primary); }
-        .teaser-grid { display: grid; gap: 16px; margin-bottom: 32px; }
-        .photo-placeholder { min-height: 250px; margin: 0; display: flex; flex-direction: column; justify-content: flex-end; background: var(--bg-alt); border: 1px solid var(--border); }
-        .photo-placeholder img { width: 100%; height: 200px; object-fit: contain; opacity: 0; }
-        .photo-placeholder figcaption { padding: 16px; color: var(--text-secondary); border-top: 1px solid var(--border); font-size: .9rem; }
-        @media (min-width: 700px) {
-            .teaser-grid { grid-template-columns: 1.35fr 1fr 1fr; }
-        }
-        .qc-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: .85rem; font-weight: 700; color: var(--success); }
-        .qc-badge svg { width: 22px; height: 22px; flex-shrink: 0; }
     </style>
 </head>
 <body>
@@ -285,31 +320,32 @@ END HEAD-ONLY SEO BLOCK
     </header>
     <main>
         <section class="hero">
+            <div class="blob blob--hero" aria-hidden="true"></div>
             <div class="site-container hero__grid">
                 <div class="reveal">
                     <span class="eyebrow">راهکارهای مهندسی تهویه مطبوع در کرمان</span>
                     <h1>طراحی، اجرا و پشتیبانی دقیق برای پروژه‌های تهویه مطبوع</h1>
                     <p class="hero__lead">فرا تهویه پارسیان مجری لوله‌گذاری مسی، نصب انواع تجهیزات تهویه، کانال‌های پیش‌عایق پلی‌اورتان و پشتیبانی فنی برای پروژه‌های ساختمانی، تجاری و صنعتی در کرمان و حومه است.</p>
-                    <div class="hero__actions"><a href="https://ftparsian.ir/request-inspection" class="btn btn--primary">درخواست کارشناسی و ریزمتریال رایگان</a><a href="https://ftparsian.ir/services" class="btn btn--outline">مشاهده خدمات</a></div>
+                    <div class="hero__actions"><a href="https://ftparsian.ir/request-inspection" class="btn btn--primary">درخواست کارشناسی و ریزمتریال رایگان</a><a href="https://ftparsian.ir/services" class="btn btn--outline">مشاهده خدمات</a></div><div class="hero__minis"><span class="hero__mini"><span class="icon-chip icon-chip--sm"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span><span><strong>۱۲+ سال</strong>تجربه اجرایی</span></span><span class="hero__mini"><span class="icon-chip icon-chip--sm"><svg class="icon" aria-hidden="true"><use href="#i-wrench"/></svg></span><span><strong>۵۰۰ مترمربع</strong>اجرا در یک روز</span></span><span class="hero__mini"><span class="icon-chip icon-chip--sm"><svg class="icon" aria-hidden="true"><use href="#i-badge"/></svg></span><span><strong>۰ تومان</strong>هزینه کارشناسی</span></span></div>
                 </div>
                 <div class="reveal hero__visual">
                     <!-- REPLACE WITH REAL PROJECT PHOTO WHEN AVAILABLE -->
-                    <figure class="hero-art">
+                    <div class="hero-art-wrap"><figure class="hero-art">
                         <svg viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="نقشه خطی اجرای کانال، دستگاه تهویه و لوله مسی">
-                            <rect x="40" y="56" width="220" height="52" style="fill:var(--bg-alt)"/>
+                            <rect x="40" y="56" width="220" height="52" style="fill:var(--primary-50)"/>
                             <path d="M100 56v52M160 56v52M220 56v52"/>
-                            <rect x="208" y="108" width="52" height="84" style="fill:var(--bg-alt)"/>
+                            <rect x="208" y="108" width="52" height="84" style="fill:var(--primary-50)"/>
                             <path d="M208 172h52M208 184h52" opacity=".55"/>
                             <circle cx="62" cy="82" r="2.6" style="fill:var(--primary)" stroke="none"/>
                             <circle cx="238" cy="82" r="2.6" style="fill:var(--primary)" stroke="none"/>
-                            <rect x="40" y="168" width="112" height="58" rx="5" style="fill:var(--bg-alt)"/>
+                            <rect x="40" y="168" width="112" height="58" rx="5" style="fill:var(--primary-50)"/>
                             <path d="M40 186h112"/>
                             <path d="M62 226v16M86 226v22M110 226v16M134 226v22" opacity=".55"/>
                             <path d="M196 268h124a20 20 0 0 0 20-20v-24" stroke-width="3"/>
                             <path d="M196 260v16M236 260v16M276 260v16" opacity=".55"/>
                             <path d="M332 224h16" opacity=".55"/>
                         </svg>
-                    </figure>
+                    </figure><span class="float-chip float-chip--a"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>۶ ماه گارانتی</span><span class="float-chip float-chip--b"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>پاسخگویی زیر ۲۴ ساعت</span></div>
                     <aside class="technical-panel technical-panel--compact" aria-label="تعهدات فنی">
                     <div class="technical-panel__label">رویکرد اجرایی ما</div>
                     <ul><li>طراحی مسیر با محاسبه دقیق برای کاهش مصرف مس</li><li>تست فشار و کنترل کیفیت پیش از تحویل</li><li>پاسخگویی فنی در کمتر از ۲۴ ساعت</li><li>کارشناسی، جانمایی روی نقشه و ریزمتریال رایگان</li></ul>
@@ -319,33 +355,33 @@ END HEAD-ONLY SEO BLOCK
         </section>
         <div class="trust-bar">
             <div class="site-container trust-bar__inner">
-                <span class="trust-bar__item"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-clock"/></svg>از ۱۳۹۲ فعال</span>
-                <span class="trust-bar__item"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-badge"/></svg>نمایندگی رسمی میتسوبیشی ۹۶–۹۷</span>
-                <span class="trust-bar__item"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>پاسخگویی زیر ۲۴ ساعت</span>
-                <span class="trust-bar__item"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-shield"/></svg>۶ ماه گارانتی تضمینی</span>
+                <span class="trust-bar__item"><span class="icon-chip"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="trust-bar__text"><strong>از ۱۳۹۲</strong><span>فعال</span></span></span>
+                <span class="trust-bar__item"><span class="icon-chip"><svg class="icon" aria-hidden="true"><use href="#i-badge"/></svg></span><span class="trust-bar__text"><strong>۹۶–۹۷</strong><span>نمایندگی رسمی میتسوبیشی</span></span></span>
+                <span class="trust-bar__item"><span class="icon-chip"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span><span class="trust-bar__text"><strong>زیر ۲۴ ساعت</strong><span>پاسخگویی</span></span></span>
+                <span class="trust-bar__item"><span class="icon-chip"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span><span class="trust-bar__text"><strong>۶ ماه</strong><span>گارانتی تضمینی</span></span></span>
             </div>
         </div>
         <section class="section" aria-labelledby="advantages-title">
             <div class="site-container">
                 <div class="section-heading section-heading--center reveal"><h2 id="advantages-title">مزیت‌های اجرایی برای کارفرما</h2><p>خدمات ما بر کنترل هزینه، زمان و کیفیت در هر مرحله از پروژه متمرکز است.</p></div>
                 <div class="card-grid card-grid--3">
-                    <article class="card reveal"><span class="card__top"><svg class="icon card__icon" aria-hidden="true"><use href="#i-pipe"/></svg><span class="card__num">۱</span></span><h3>طراحی مهندسی بهینه</h3><p>محاسبه دقیق مسیر لوله‌گذاری برای کاهش مصرف مس و هزینه متریال، بدون کوتاهی در الزامات اجرا.</p></article>
-                    <article class="card reveal"><span class="card__top"><svg class="icon card__icon" aria-hidden="true"><use href="#i-clock"/></svg><span class="card__num">۲</span></span><h3>سرعت اجرای قابل سنجش</h3><p>تیم‌های تخصصی برای تحویل فشرده پروژه‌ها؛ نمونه اعلام‌شده، اجرای پروژه ۵۰۰ مترمربعی در یک روز است.</p></article>
-                    <article class="card reveal"><span class="card__top"><svg class="icon card__icon" aria-hidden="true"><use href="#i-shield"/></svg><span class="card__num">۳</span></span><h3>تست پیش از تحویل</h3><p>تست فشار و کنترل کیفیت کامل پیش از تحویل، با هدف اطمینان از نبود عیب در لوله‌های کارخانه‌ای.</p><span class="qc-badge"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" style="fill:var(--success)"/><path d="M8 12.5l2.7 2.7L16.5 9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>تست شده و تضمین‌شده</span></article>
-                    <article class="card reveal"><span class="card__top"><svg class="icon card__icon" aria-hidden="true"><use href="#i-box"/></svg><span class="card__num">۴</span></span><h3>خرید لوله و پرت مصرف‌نشده</h3><p>لوله اضافه، حتی رول کامل و جوش‌نخورده، پس گرفته می‌شود و هزینه آن به کارفرما بازمی‌گردد.</p></article>
-                    <article class="card reveal"><span class="card__top"><svg class="icon card__icon" aria-hidden="true"><use href="#i-badge"/></svg><span class="card__num">۵</span></span><h3>کارشناسی و ریزمتریال رایگان</h3><p>بازدید فنی، جانمایی دستگاه‌ها روی نقشه و ارائه فهرست دقیق متریال بدون دریافت هزینه کارشناسی.</p></article>
-                    <article class="card reveal"><span class="card__top"><svg class="icon card__icon" aria-hidden="true"><use href="#i-wrench"/></svg><span class="card__num">۶</span></span><h3>پشتیبانی فنی سریع</h3><p>حل مسئله در محل زیر ۲۴ ساعت و اغلب زیر ۱۲ ساعت، به‌همراه پشتیبانی تضمینی رایگان شش‌ماهه.</p></article>
+                    <article class="card reveal"><span class="card__top"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-pipe"/></svg></span><span class="card__num">۱</span></span><h3>طراحی مهندسی بهینه</h3><p>محاسبه دقیق مسیر لوله‌گذاری برای کاهش مصرف مس و هزینه متریال، بدون کوتاهی در الزامات اجرا.</p></article>
+                    <article class="card reveal"><span class="card__top"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-clock"/></svg></span><span class="card__num">۲</span></span><h3>سرعت اجرای قابل سنجش</h3><p>تیم‌های تخصصی برای تحویل فشرده پروژه‌ها؛ نمونه اعلام‌شده، اجرای پروژه ۵۰۰ مترمربعی در یک روز است.</p></article>
+                    <article class="card reveal"><span class="card__top"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-shield"/></svg></span><span class="card__num">۳</span></span><h3>تست پیش از تحویل</h3><p>تست فشار و کنترل کیفیت کامل پیش از تحویل، با هدف اطمینان از نبود عیب در لوله‌های کارخانه‌ای.</p><span class="qc-badge"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" style="fill:var(--success)"/><path d="M8 12.5l2.7 2.7L16.5 9" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>تست شده و تضمین‌شده</span></article>
+                    <article class="card reveal"><span class="card__top"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-box"/></svg></span><span class="card__num">۴</span></span><h3>خرید لوله و پرت مصرف‌نشده</h3><p>لوله اضافه، حتی رول کامل و جوش‌نخورده، پس گرفته می‌شود و هزینه آن به کارفرما بازمی‌گردد.</p></article>
+                    <article class="card reveal"><span class="card__top"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-badge"/></svg></span><span class="card__num">۵</span></span><h3>کارشناسی و ریزمتریال رایگان</h3><p>بازدید فنی، جانمایی دستگاه‌ها روی نقشه و ارائه فهرست دقیق متریال بدون دریافت هزینه کارشناسی.</p></article>
+                    <article class="card reveal"><span class="card__top"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-wrench"/></svg></span><span class="card__num">۶</span></span><h3>پشتیبانی فنی سریع</h3><p>حل مسئله در محل زیر ۲۴ ساعت و اغلب زیر ۱۲ ساعت، به‌همراه پشتیبانی تضمینی رایگان شش‌ماهه.</p></article>
                 </div>
             </div>
         </section>
-        <section class="section section--alt section--cut-b" aria-labelledby="services-title">
+        <section class="section section--alt" aria-labelledby="services-title">
             <div class="site-container">
                 <div class="section-heading reveal"><h2 id="services-title">چهار خدمت تخصصی</h2><p>از طراحی مسیر و تأمین متریال تا اجرا، تست و نگهداری، مسیر همکاری در یک مجموعه فنی متمرکز می‌شود.</p></div>
                 <div class="card-grid card-grid--2">
-                    <article class="card service-card reveal"><svg class="icon card__icon" aria-hidden="true"><use href="#i-pipe"/></svg><h3>لوله‌گذاری مسی</h3><p>اجرای مسیرهای مسی با استفاده از برندهای باهنر، بابک، قائم و مهر، همراه با بهینه‌سازی و تست پیش از تحویل.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/copper-piping">جزئیات لوله‌گذاری مسی ←</a></article>
-                    <article class="card service-card reveal"><svg class="icon card__icon" aria-hidden="true"><use href="#i-ac"/></svg><h3>نصب دستگاه‌های تهویه مطبوع</h3><p>نصب استاندارد انواع دستگاه‌های سرمایشی و گرمایشی برای پروژه‌های ساختمانی، تجاری و صنعتی.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/hvac-installation">جزئیات نصب HVAC ←</a></article>
-                    <article class="card service-card reveal"><svg class="icon card__icon" aria-hidden="true"><use href="#i-wrench"/></svg><h3>تعمیر و پشتیبانی فنی</h3><p>سرویس دوره‌ای، تعمیر، عیب‌یابی و پاسخگویی میدانی برای حفظ عملکرد پایدار سیستم‌ها.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/maintenance-support">جزئیات پشتیبانی ←</a></article>
-                    <article class="card service-card reveal"><svg class="icon card__icon" aria-hidden="true"><use href="#i-duct"/></svg><h3>کانال پیش‌عایق پلی‌اورتان</h3><p>ساخت و اجرای کانال پیش‌عایق با ورق آلومینیوم ۸۰ میکرون برای مسیرهای تهویه پروژه.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/polyurethane-ducts">جزئیات کانال پلی‌اورتان ←</a></article>
+                    <article class="card service-card reveal"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-pipe"/></svg></span><h3>لوله‌گذاری مسی</h3><p>اجرای مسیرهای مسی با استفاده از برندهای باهنر، بابک، قائم و مهر، همراه با بهینه‌سازی و تست پیش از تحویل.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/copper-piping">جزئیات لوله‌گذاری مسی ←</a></article>
+                    <article class="card service-card reveal"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-ac"/></svg></span><h3>نصب دستگاه‌های تهویه مطبوع</h3><p>نصب استاندارد انواع دستگاه‌های سرمایشی و گرمایشی برای پروژه‌های ساختمانی، تجاری و صنعتی.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/hvac-installation">جزئیات نصب HVAC ←</a></article>
+                    <article class="card service-card reveal"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-wrench"/></svg></span><h3>تعمیر و پشتیبانی فنی</h3><p>سرویس دوره‌ای، تعمیر، عیب‌یابی و پاسخگویی میدانی برای حفظ عملکرد پایدار سیستم‌ها.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/maintenance-support">جزئیات پشتیبانی ←</a></article>
+                    <article class="card service-card reveal"><span class="icon-chip"><svg class="icon card__icon" aria-hidden="true"><use href="#i-duct"/></svg></span><h3>کانال پیش‌عایق پلی‌اورتان</h3><p>ساخت و اجرای کانال پیش‌عایق با ورق آلومینیوم ۸۰ میکرون برای مسیرهای تهویه پروژه.</p><a class="btn btn--outline" href="https://ftparsian.ir/services/polyurethane-ducts">جزئیات کانال پلی‌اورتان ←</a></article>
                 </div>
             </div>
         </section>
@@ -355,10 +391,10 @@ END HEAD-ONLY SEO BLOCK
                 <div class="stats reveal"><div class="stat"><strong>۵۰۰m²</strong><span>نمونه سرعت اجرای اعلام‌شده</span></div><div class="stat"><strong>۶ ماه</strong><span>پشتیبانی تضمینی رایگان</span></div><div class="stat"><strong>زیر ۲۴ ساعت</strong><span>هدف حل مسئله در محل</span></div><div class="stat"><strong>۰ تومان</strong><span>هزینه کارشناسی اولیه</span></div></div>
             </div>
         </section>
-        <section class="section section--alt section--cut-r" aria-labelledby="projects-title">
+        <section class="section section--alt" aria-labelledby="projects-title">
             <div class="site-container"><div class="section-heading section-heading--center reveal"><h2 id="projects-title">پروژه‌های اجرایی</h2><p>نمونه‌کارها با تصاویر واقعی مشتری تکمیل می‌شوند.</p></div><div class="teaser-grid"><figure class="photo-placeholder reveal"><!-- CLIENT PHOTO PLACEHOLDER --><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420'%3E%3C/svg%3E" alt="لوله‌گذاری مسی پروژه [نام/نوع پروژه] - فراتهویه پارسیان" width="640" height="420"><figcaption>جای تصویر: لوله‌گذاری مسی پروژه [نام/نوع پروژه]</figcaption></figure><figure class="photo-placeholder reveal"><!-- CLIENT PHOTO PLACEHOLDER --><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420'%3E%3C/svg%3E" alt="نصب تهویه مطبوع پروژه [نام/نوع پروژه] - فراتهویه پارسیان" width="640" height="420"><figcaption>جای تصویر: نصب تهویه مطبوع پروژه [نام/نوع پروژه]</figcaption></figure><figure class="photo-placeholder reveal"><!-- CLIENT PHOTO PLACEHOLDER --><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='420'%3E%3C/svg%3E" alt="کانال پلی‌اورتان پروژه [نام/نوع پروژه] - فراتهویه پارسیان" width="640" height="420"><figcaption>جای تصویر: کانال پلی‌اورتان پروژه [نام/نوع پروژه]</figcaption></figure></div><div class="hero__actions" style="justify-content:center"><a href="https://ftparsian.ir/projects" class="btn btn--outline">مشاهده صفحه پروژه‌ها</a></div></div>
         </section>
-        <section class="section"><div class="site-container"><div class="cta reveal"><h2>پروژه شما به ارزیابی فنی نیاز دارد؟</h2><p>درخواست بازدید رایگان ثبت کنید تا جانمایی، مسیر اجرا و فهرست ریزمتریال پروژه در کرمان بررسی شود.</p><a href="https://ftparsian.ir/request-inspection" class="btn btn--primary">ثبت درخواست کارشناسی</a></div></div></section>
+        <section class="section cta-section"><div class="blob blob--cta" aria-hidden="true"></div><div class="site-container"><div class="cta reveal"><h2>پروژه شما به ارزیابی فنی نیاز دارد؟</h2><p>درخواست بازدید رایگان ثبت کنید تا جانمایی، مسیر اجرا و فهرست ریزمتریال پروژه در کرمان بررسی شود.</p><a href="https://ftparsian.ir/request-inspection" class="btn btn--primary">ثبت درخواست کارشناسی</a></div></div></section>
     </main>
     <footer class="site-footer">
         <div class="site-container">
@@ -383,6 +419,13 @@ END HEAD-ONLY SEO BLOCK
                     toggle.setAttribute('aria-expanded', String(open));
                 });
             }
+            var header = document.querySelector('.site-header');
+            function onScroll() {
+                if (window.scrollY > 40) { header.classList.add('is-scrolled'); }
+                else { header.classList.remove('is-scrolled'); }
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
             var items = document.querySelectorAll('.reveal');
             if ('IntersectionObserver' in window) {
                 var observer = new IntersectionObserver(function (entries) {
