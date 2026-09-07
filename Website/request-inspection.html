@@ -225,19 +225,48 @@ END HEAD-ONLY SEO BLOCK
         .card:hover { border-inline-start-color: var(--primary); }
         .card .card__icon { color: var(--text-secondary); transition: color 200ms ease-in-out; }
         .card:hover .card__icon { color: var(--primary); }
+        .icon { width: 30px; height: 30px; color: var(--primary); flex-shrink: 0; }
+        .icon--sm { width: 18px; height: 18px; }
+        .card__top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+        .card__num { font-size: .8rem; font-weight: 700; color: var(--text-secondary); }
+        .service-card .card__icon { display: block; margin-bottom: 14px; }
+        .top-bar__details span { display: inline-flex; align-items: center; gap: 6px; }
+        .top-bar .icon { color: var(--bg-main); }
+        .menu-toggle__icon { display: inline-flex; }
+        .footer-socials a { align-items: center; gap: 6px; }
+        .footer-socials .icon, .footer-contact .icon, .contact-float .icon { color: var(--bg-main); }
+        .footer-contact__line { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .contact-float a { gap: 6px; }
     </style>
 </head>
 <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-pipe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21v-8a5 5 0 0 1 5-5h8"/><path d="M5 21h6M21 5v6"/></symbol>
+            <symbol id="i-ac" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="1.5"/><path d="M3 7.5h18"/><path d="M7.5 14.5v4M12 14.5v5M16.5 14.5v4"/></symbol>
+            <symbol id="i-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+            <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.6v5.2c0 4.3-2.9 7.4-7 9.2-4.1-1.8-7-4.9-7-9.2V5.6L12 3z"/><path d="M9 12l2 2 4-4.5"/></symbol>
+            <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+            <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v2.6a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 3.8 2 2 0 0 1 4.1 1.6h2.6a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L7.8 9.7a16 16 0 0 0 6 6l1.5-1.5a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7a2 2 0 0 1 1.8 2z"/></symbol>
+            <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.4-6.5-10.2A6.5 6.5 0 0 1 12 4.3a6.5 6.5 0 0 1 6.5 6.5C18.5 15.6 12 21 12 21z"/><circle cx="12" cy="10.8" r="2.3"/></symbol>
+            <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4L7.6 4.2"/><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/><path d="M3.3 7L12 12l8.7-5M12 22V12"/></symbol>
+            <symbol id="i-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M8.6 13.4L7 21l5-2.3L17 21l-1.6-7.6"/><path d="M10 9l1.5 1.5L14 8"/></symbol>
+            <symbol id="i-duct" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h15a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H3z"/><path d="M7.5 8v8M16.5 8v8"/></symbol>
+            <symbol id="i-wa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.7L3.5 20.5l4.4-1.2A8.5 8.5 0 1 0 12 3.5z"/><path d="M8.8 9.5c.5 2.3 2.2 4 4.5 4.5l1-1.2 1.7.9c-.5 1.2-1.3 1.7-2.6 1.2-2.5-.9-4.9-3.3-5.8-5.8-.5-1.3 0-2.1 1.2-2.6l.9 1.7-1.2 1z"/></symbol>
+            <symbol id="i-tg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4L3.5 11l6 2.3L11.7 20l3.8-5.2 5.5 1.4L21 4z"/><path d="M21 4L9.5 13.3"/></symbol>
+            <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        </defs>
+    </svg>
     <div class="top-bar">
         <div class="site-container top-bar__inner">
-            <div class="top-bar__details"><span>📞 تماس: ۰۹۱۳۵۳۹۳۹۸۶ | ۰۹۱۳۷۸۴۶۶۲۵</span><span>📍 محدوده اصلی فعالیت: کرج و حومه</span></div>
+            <div class="top-bar__details"><span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg>تماس: ۰۹۱۳۵۳۹۳۹۸۶ | ۰۹۱۳۷۸۴۶۶۲۵</span><span><svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"/></svg>محدوده اصلی فعالیت: کرج و حومه</span></div>
             <a href="https://panel.ftparsian.ir" class="top-bar__link">ورود به پنل کارفرمایان ←</a>
         </div>
     </div>
     <header class="site-header">
         <div class="site-container header__inner">
             <a href="https://ftparsian.ir/" class="brand" aria-label="صفحه اصلی فرا تهویه پارسیان">فرا تهویه <span>پارسیان</span></a>
-            <button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true">☰</span><span>منو</span></button>
+            <button class="menu-toggle" type="button" aria-controls="main-nav" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-menu"/></svg></span><span>منو</span></button>
             <nav class="main-nav" id="main-nav" aria-label="ناوبری اصلی">
                 <ul>
                     <li><a href="https://ftparsian.ir/">صفحه اصلی</a></li>
@@ -258,15 +287,15 @@ END HEAD-ONLY SEO BLOCK
     <footer class="site-footer">
         <div class="site-container">
             <div class="footer-grid">
-                <section class="footer-brand"><h2>فرا تهویه پارسیان</h2><p>طراحی، اجرا و پشتیبانی سیستم‌های تهویه مطبوع، لوله‌گذاری مسی و کانال‌های پیش‌عایق پلی‌اورتان در کرج و حومه.</p><div class="footer-socials"><!-- TBD: replace the Instagram URL when the client confirms it. --><a href="#instagram-tbd" aria-label="اینستاگرام">اینستاگرام</a><a href="https://t.me/+989137846625" aria-label="تلگرام">تلگرام</a><a href="https://wa.me/989135393986" aria-label="واتس‌اپ">واتس‌اپ</a></div></section>
+                <section class="footer-brand"><h2>فرا تهویه پارسیان</h2><p>طراحی، اجرا و پشتیبانی سیستم‌های تهویه مطبوع، لوله‌گذاری مسی و کانال‌های پیش‌عایق پلی‌اورتان در کرج و حومه.</p><div class="footer-socials"><!-- TBD: replace the Instagram URL when the client confirms it. --><a href="#instagram-tbd" aria-label="اینستاگرام">اینستاگرام</a><a href="https://t.me/+989137846625" aria-label="تلگرام"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-tg"/></svg>تلگرام</a><a href="https://wa.me/989135393986" aria-label="واتس‌اپ"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-wa"/></svg>واتس‌اپ</a></div></section>
                 <section><h3>خدمات</h3><ul><li><a href="https://ftparsian.ir/services/copper-piping">لوله‌گذاری مسی</a></li><li><a href="https://ftparsian.ir/services/hvac-installation">نصب تهویه مطبوع</a></li><li><a href="https://ftparsian.ir/services/maintenance-support">تعمیر و پشتیبانی</a></li><li><a href="https://ftparsian.ir/services/polyurethane-ducts">کانال پلی‌اورتان</a></li></ul></section>
                 <section><h3>دسترسی سریع</h3><ul><li><a href="https://ftparsian.ir/">صفحه اصلی</a></li><li><a href="https://ftparsian.ir/about-us">درباره ما</a></li><li><a href="https://ftparsian.ir/projects">نمونه‌کارها</a></li><li><a href="https://ftparsian.ir/faq">سوالات متداول</a></li><li><a href="https://panel.ftparsian.ir">پنل کارفرمایان</a></li></ul></section>
-                <section class="footer-contact"><h3>ارتباط</h3><address>کرج و حومه<br><a href="tel:+989135393986">۰۹۱۳۵۳۹۳۹۸۶</a><br><a href="tel:+989137846625">۰۹۱۳۷۸۴۶۶۲۵</a><br><!-- TBD: complete and publish the third number beginning ۰۹۱۳۹۸۴ after confirmation. --><span>شماره سوم: ۰۹۱۳۹۸۴… (در انتظار تأیید)</span><br><a href="mailto:info@ftparsian.ir">info@ftparsian.ir</a></address></section>
+                <section class="footer-contact"><h3>ارتباط</h3><address><span class="footer-contact__line"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-pin"/></svg>کرج و حومه</span><span class="footer-contact__line"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+989135393986">۰۹۱۳۵۳۹۳۹۸۶</a></span><span class="footer-contact__line"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg><a href="tel:+989137846625">۰۹۱۳۷۸۴۶۶۲۵</a></span><!-- TBD: complete and publish the third number beginning ۰۹۱۳۹۸۴ after confirmation. --><span class="footer-contact__line"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-phone"/></svg><span>شماره سوم: ۰۹۱۳۹۸۴… (در انتظار تأیید)</span></span><span class="footer-contact__line"><a href="mailto:info@ftparsian.ir">info@ftparsian.ir</a></span></address></section>
             </div>
             <div class="footer-bottom"><span>© فرا تهویه پارسیان</span><span>خدمات فنی تهویه مطبوع در کرج و حومه</span></div>
         </div>
     </footer>
-    <div class="contact-float" aria-label="راه‌های ارتباط سریع"><a href="https://wa.me/989135393986" aria-label="واتس‌اپ">واتس‌اپ</a><a href="https://t.me/+989137846625" aria-label="تلگرام">تلگرام</a></div>
+    <div class="contact-float" aria-label="راه‌های ارتباط سریع"><a href="https://wa.me/989135393986" aria-label="واتس‌اپ"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-wa"/></svg>واتس‌اپ</a><a href="https://t.me/+989137846625" aria-label="تلگرام"><svg class="icon icon--sm" aria-hidden="true"><use href="#i-tg"/></svg>تلگرام</a></div>
     <div class="mobile-contact-bar" aria-label="تماس سریع موبایل"><a href="tel:+989135393986">تماس تلفنی</a><a href="https://ftparsian.ir/request-inspection">کارشناسی رایگان</a></div>
     <script>
         (function () {
