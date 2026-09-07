@@ -221,6 +221,10 @@ END HEAD-ONLY SEO BLOCK
             *, *::before, *::after { transition-duration: 0.01ms !important; }
             .reveal { opacity: 1; transform: none; }
         }
+        .card { transition: border-color 200ms ease-in-out; }
+        .card:hover { border-inline-start-color: var(--primary); }
+        .card .card__icon { color: var(--text-secondary); transition: color 200ms ease-in-out; }
+        .card:hover .card__icon { color: var(--primary); }
     </style>
 </head>
 <body>
